@@ -25,13 +25,13 @@
 import Cocoa
 import GitHubUpdates
 
-@NSApplicationMain class ApplicationDelegate: NSObject, NSApplicationDelegate
+@NSApplicationMain class ApplicationDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate
 {
     private var statusItem:             NSStatusItem?
     private var aboutWindowController:  AboutWindowController?
     private var popover:                NSPopover?
     private var mainViewController:     MainViewController?
-    private var popoverTranscientEvent: Any?
+    private var popoverTransientEvent:  Any?
     private var updateCheckTimer:       Timer?
     private var observations:           [ NSKeyValueObservation ] = []
     
@@ -130,7 +130,24 @@ import GitHubUpdates
     }
     
     func applicationWillTerminate( _ notification: Notification )
-    {}
+    {
+        self.removePopoverEventMonitor()
+    }
+    
+    func popoverDidClose( _ notification: Notification )
+    {
+        self.removePopoverEventMonitor()
+    }
+    
+    private func removePopoverEventMonitor()
+    {
+        if let eventMonitor = self.popoverTransientEvent
+        {
+            NSEvent.removeMonitor( eventMonitor )
+            
+            self.popoverTransientEvent = nil
+        }
+    }
     
     private func updateStatusItem()
     {
@@ -179,6 +196,7 @@ import GitHubUpdates
             self.popover                        = NSPopover()
             self.popover?.contentViewController = controller
             self.popover?.behavior              = .applicationDefined
+            self.popover?.delegate              = self
             
             if let button = self.statusItem?.button
             {
@@ -186,9 +204,10 @@ import GitHubUpdates
                 self.popover?.show( relativeTo: NSZeroRect, of: button, preferredEdge: NSRectEdge.minY )
             }
             
-            self.popoverTranscientEvent = NSEvent.addGlobalMonitorForEvents( matching: .leftMouseUp )
+            self.removePopoverEventMonitor()
+            self.popoverTransientEvent = NSEvent.addGlobalMonitorForEvents( matching: .leftMouseDown )
             {
-                _ in self.popover?.close()
+                [ weak self ] _ in self?.popover?.close()
             }
         }
     }

@@ -23,6 +23,7 @@
  ******************************************************************************/
 
 import Cocoa
+import UniformTypeIdentifiers
 
 @objc public class DerivedData: NSObject
 {
@@ -109,7 +110,7 @@ import Cocoa
             self.projectPath = nil
             self.name        = url.lastPathComponent
             self.size        = 0
-            self.icon        = NSWorkspace.shared.icon( forFileType: "dylib" )
+            self.icon        = NSWorkspace.shared.icon( for: UTType( filenameExtension: "dylib" ) ?? .data )
             self.loading     = true
             self.zombie      = false
             self.priority    = 10
@@ -137,7 +138,7 @@ import Cocoa
             self.projectPath = workspace
             self.name        = FileManager.default.displayName( atPath: workspace )
             self.size        = 0
-            self.icon        = NSWorkspace.shared.icon( forFileType: ( workspace as NSString ).pathExtension )
+            self.icon        = NSWorkspace.shared.icon( for: UTType( filenameExtension: ( workspace as NSString ).pathExtension ) ?? .data )
             self.loading     = true
             self.zombie      = FileManager.default.fileExists( atPath: workspace ) == false
             self.priority    = 0
