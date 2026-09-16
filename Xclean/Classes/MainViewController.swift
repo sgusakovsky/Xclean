@@ -204,6 +204,21 @@ public class MainViewController: NSViewController, NSMenuDelegate
         }
     }
     
+    @IBAction private func showDerivedData( _ sender: Any? )
+    {
+        guard let url = DerivedData.derivedDataURL else
+        {
+            return
+        }
+        
+        if FileManager.default.fileExists( atPath: url.path ) == false
+        {
+            try? FileManager.default.createDirectory( at: url, withIntermediateDirectories: true )
+        }
+        
+        NSWorkspace.shared.open( url )
+    }
+    
     @IBAction private func deleteAll( _ sender: Any? )
     {
         if let url = DerivedData.derivedDataURL

@@ -344,6 +344,16 @@
                                 </binding>
                             </connections>
                         </button>
+                        <button toolTip="Show the DerivedData folder in Finder." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YQv-MZ-SdD">
+                            <rect key="frame" x="218" y="8" width="134" height="32"/>
+                            <buttonCell key="cell" type="push" title="Show DerivedData" bezelStyle="rounded" imagePosition="leading" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="AAn-Aq-sDD">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showDerivedData:" target="-2" id="Fnd-DD-Act"/>
+                            </connections>
+                        </button>
                         <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sRF-Ne-dXF">
                             <rect key="frame" x="360" y="8" width="92" height="32"/>
                             <buttonCell key="cell" type="push" title="Delete All" bezelStyle="rounded" imagePosition="leading" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dDk-4B-pYG">
@@ -376,7 +386,9 @@
                         <constraint firstItem="8vi-aN-MIw" firstAttribute="centerX" secondItem="dZv-FU-RvU" secondAttribute="centerX" id="ShK-v9-L2Y"/>
                         <constraint firstItem="VPK-Oh-VCj" firstAttribute="centerX" secondItem="0O2-6A-mBC" secondAttribute="centerX" id="bzR-Iq-eka"/>
                         <constraint firstItem="rtA-RY-bCe" firstAttribute="leading" secondItem="0O2-6A-mBC" secondAttribute="leading" id="ddg-iz-Gmw"/>
-                        <constraint firstItem="sRF-Ne-dXF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qmu-f6-k7l" secondAttribute="trailing" constant="20" id="dgi-gb-Qmo"/>
+                        <constraint firstItem="YQv-MZ-SdD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qmu-f6-k7l" secondAttribute="trailing" constant="20" id="dgi-gb-Qmo"/>
+                        <constraint firstItem="sRF-Ne-dXF" firstAttribute="leading" secondItem="YQv-MZ-SdD" secondAttribute="trailing" constant="8" id="Fnd-DD-Gap"/>
+                        <constraint firstItem="YQv-MZ-SdD" firstAttribute="centerY" secondItem="sRF-Ne-dXF" secondAttribute="centerY" id="Fnd-DD-Ctr"/>
                         <constraint firstItem="8vi-aN-MIw" firstAttribute="top" secondItem="dZv-FU-RvU" secondAttribute="bottom" id="gX4-Z3-PYO"/>
                         <constraint firstItem="Qmu-f6-k7l" firstAttribute="centerY" secondItem="sRF-Ne-dXF" secondAttribute="centerY" id="jR6-db-a04"/>
                         <constraint firstItem="rtA-RY-bCe" firstAttribute="top" secondItem="thh-Zo-gwJ" secondAttribute="bottom" id="kHM-H5-BSj"/>
@@ -508,6 +520,12 @@
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show DerivedData" id="Fnd-DD-Mnu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showDerivedData:" target="-2" id="Fnd-DD-MAc"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Clear Module Cache..." id="Jjo-5D-NX4">
